@@ -4,6 +4,10 @@
 const express = require('express');
 
 const app = express();
+
+//allow express to host static files.
+app.use(express.static('public'));
+
 var port = 3000;
 
 const server = app.listen(port, () => {
