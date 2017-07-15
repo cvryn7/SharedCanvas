@@ -1,5 +1,5 @@
 //declare socket for the client and connect to server
-const socket = io.connect('https://5f8593bc-cb0e-48b1-a21d-80c22d9f3eac:8080');
+const socket = io.connect('https://shared-canvas-1.herokuapp.com/');
 
 function setup() {
     createCanvas(600, 600);
@@ -12,7 +12,6 @@ function setup() {
 }
 
 function draw() {
-    onStroke
 }
 
 //draw only on mouse drag
