@@ -1,7 +1,7 @@
 //declare socket for the client and connect to server
 const socket = io.connect('localhost:8080');
 var startPage = true;
-var button, input;
+var canvas, button, input;
 let data = {
     x: 0,
     y: 0,
@@ -9,7 +9,11 @@ let data = {
 };
 
 function setup() {
-    createCanvas(600, 600);
+    canvas = createCanvas(600, 600);
+    button = createButton('Start Drawing');
+    input = createInput("", String);
+
+    setSketchParent();
     background(0);
     takeUserInput();
 
@@ -35,21 +39,34 @@ function mouseDragged() {
     }
 }
 
+function setSketchParent() {
+    canvas.parent('sketch-holder');
+    canvas.style('position','absolute');
+    button.parent('sketch-holder');
+    button.style('position', 'absolute');
+    input.parent('sketch-holder');
+    input.style('position', 'absolute');
+}
+
+////Interface////
+
 /**
  * Declare dom elements to show on the
  * canvas for fetching username.
  */
 function takeUserInput() {
+    //Button
+    button.style('margin-top', height/2 - 70 + "px");
+    button.style('margin-left', width/2 + 30 + "px");
+    button.mouseClicked(takeUserName);
+    button.size(100, 30);
+
     //Text input
-    input = createInput("", String);
-    input.position(width/2 - 120, height/2);
+    input.style('margin-top', height/2 - 70 + "px");
+    input.style('margin-left', width/2 - 120 + "px");
+    input.size(150, 30);
     input.attribute('placeholder', 'Enter your name!');
     input.mousePressed(changeButtonTextColor);
-
-    //Button
-    button = createButton('Start Drawing');
-    button.position(width/2 + 30, height/2);
-    button.mouseClicked(takeUserName);
 }
 
 /**
@@ -60,7 +77,12 @@ function takeUserName() {
         button.style('color', 'red');
         input.attribute('placeholder', 'Please Enter Name');
     } else {
-        data.name = input.value();
+        var welcomePara = document.getElementById('welcomeTag');
+        var username = input.value();
+        username = username.charAt(0).toUpperCase() + username.slice(1);
+        welcomePara.innerHTML = "Welcome " + username + "! Start Drawing!";
+        console.log(canvas.position().x + ": " + canvas.position().y)
+        data.name = username;
     }
 }
 
