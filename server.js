@@ -1,7 +1,7 @@
 /**
  * This file defines server for the collaborate/shared canvas
  */
-var port = 3000;
+var port = process.env.PORT || 8080;
 const express = require('express');
 const socket = require('socket.io');
 const app = express();
