@@ -5,7 +5,7 @@ function setup() {
     createCanvas(600, 600);
     background(0);
     socket.on('mouse', (data) => {
-        onStroke();
+        noStroke();
         fill('blue');
         ellipse(data.x, data.y, 15, 15);
     });
