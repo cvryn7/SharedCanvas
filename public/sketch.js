@@ -7,23 +7,29 @@ let data = {
     y: 0,
     name: "karan"
 };
-
+var friendP;
 function setup() {
     canvas = createCanvas(600, 600);
-    button = createButton('Start Drawing');
+    button
+        = createButton('Start Drawing');
     input = createInput("", String);
 
     setSketchParent();
     background(0);
     takeUserInput();
 
-    if (!startPage) {
-        socket.on('mouse', (data) => {
+    socket.on('mouse', (data) => {
+            if (friendP) friendP.remove();
+            friendP = createP(data.name);
+            friendP.style('color','blue');
+            friendP.position(canvas.position().x + data.x, canvas.position().y + data.y);
             noStroke();
             fill('blue');
             ellipse(data.x, data.y, 15, 15);
+/*            fill('blue')
+            text(data.name, data.x, data.y);
+            textSize(20);*/
         });
-    }
 }
 
 function draw() {
@@ -32,10 +38,12 @@ function draw() {
 //draw only on mouse drag
 function mouseDragged() {
     if (!startPage) {
+        data.x = mouseX;
+        data.y = mouseY;
         socket.emit('mouse', data);
         noStroke(); // removes the boundary from the shape
         fill('red');
-        ellipse(mouseX, mouseY, 15, 15);
+        ellipse(data.x, data.y, 15, 15);
     }
 }
 
@@ -83,6 +91,9 @@ function takeUserName() {
         welcomePara.innerHTML = "Welcome " + username + "! Start Drawing!";
         console.log(canvas.position().x + ": " + canvas.position().y)
         data.name = username;
+        startPage = false;
+        input.remove();
+        button.remove();
     }
 }
 
