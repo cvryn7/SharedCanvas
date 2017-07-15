@@ -14,7 +14,7 @@ const server = app.listen(port, () => {
 const io = socket(server);
 
 io.sockets.on('connection', (socket) => {
-    console.log(socket);
+    console.log("new connection: " + socket.id);
 });
 
 
