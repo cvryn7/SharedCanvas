@@ -7,6 +7,17 @@ function setup() {
 }
 
 function draw() {
+
+}
+
+//draw only on mouse drag
+function mouseDragged() {
+    var data = {
+        x: mouseX,
+        y: mouseY
+    }
+    socket.emit('mouse', data);
+    console.log(mouseX + ', ' + mouseY);
     noStroke(); // removes the boundary from the shape
     fill('red');
     ellipse(mouseX, mouseY, 15, 15);
