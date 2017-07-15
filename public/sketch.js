@@ -1,5 +1,5 @@
 //declare socket for the client and connect to server
-const socket = io.connect('https://shared-canvas-1.herokuapp.com/');
+const socket = io.connect('localhost:8080');
 
 function setup() {
     createCanvas(600, 600);
