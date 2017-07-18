@@ -2,6 +2,8 @@
 const socket = io.connect('localhost:8080');
 var startPage = true;
 var canvas, button, input;
+var canvasWidth = 600;
+var canvasHeight = 600;
 let data = {
     x: 0,
     y: 0,
@@ -9,9 +11,11 @@ let data = {
 };
 var friendP;
 function setup() {
+    var canvasWrappingDiv = document.getElementById('sketch-holder');
+    canvasWrappingDiv.style.width = canvasWidth + "px";
+    canvasWrappingDiv.style.height = canvasHeight + "px";
     canvas = createCanvas(600, 600);
-    button
-        = createButton('Start Drawing');
+    button = createButton('Start Drawing');
     input = createInput("", String);
 
     setSketchParent();
@@ -22,13 +26,10 @@ function setup() {
             if (friendP) friendP.remove();
             friendP = createP(data.name);
             friendP.style('color','blue');
-            friendP.position(canvas.position().x + data.x, canvas.position().y + data.y);
+            friendP.position( data.x , data.y + 100);
             noStroke();
             fill('blue');
             ellipse(data.x, data.y, 15, 15);
-/*            fill('blue')
-            text(data.name, data.x, data.y);
-            textSize(20);*/
         });
 }
 
